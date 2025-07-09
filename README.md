@@ -15,7 +15,6 @@ A deep learning project focused on the automated classification of skin lesions 
   - `nv` — Melanocytic nevi
   - `mel` — Melanoma
   - `vasc` — Vascular lesions
-- [Optional]: Used a class-balanced version with 3,500 samples per class ([Augmented HAM10000](https://www.kaggle.com/datasets/aranyasaha/augmented-ham10000-3500-image-per-class))
 
 ---
 
