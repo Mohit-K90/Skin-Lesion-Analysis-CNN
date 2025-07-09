@@ -1,5 +1,7 @@
-flask
+Flask
+gunicorn
 tensorflow
 numpy
+pillow
+scikit-learn
 opencv-python
-matplotlib
