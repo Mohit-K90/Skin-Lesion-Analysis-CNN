@@ -50,4 +50,20 @@ Integrated both:
 ---
 
 ## 🛠️ Project Structure
+Skin-Lesion-Analysis-CNN/
+├── app.py # Flask app for local deployment
+├── model/ # Trained model (not uploaded due to GitHub size limit)
+├── notebooks/ # Training and evaluation notebooks
+├── static/ # Grad-CAM outputs (optional)
+├── utils.py # Visualization and helper functions
+├── requirements.txt
+└── README.md
+---
 
+## 🚀 Deployment
+
+To run the Flask app locally:
+
+```bash
+pip install -r requirements.txt
+python app.py
