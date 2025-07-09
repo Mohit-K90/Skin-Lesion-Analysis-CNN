@@ -67,7 +67,7 @@ To run the Flask app locally:
 ```bash
 pip install -r requirements.txt
 python app.py
-
+```
 👤 Author
 Mohit Kamkhalia
 📧 mohitkamkhalia@gmail.com
