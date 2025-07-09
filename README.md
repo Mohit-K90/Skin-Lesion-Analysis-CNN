@@ -67,3 +67,10 @@ To run the Flask app locally:
 ```bash
 pip install -r requirements.txt
 python app.py
+
+👤 Author
+Mohit Kamkhalia
+📧 mohitkamkhalia@gmail.com
+🔗 GitHub | LinkedIn
+
+Disclaimer: This tool is intended for academic and research purposes. It is not a substitute for clinical diagnosis.
