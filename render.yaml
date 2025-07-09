@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: skin-lesion-app
+    env: python
+    buildCommand: ""
+    startCommand: gunicorn app:app
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.10

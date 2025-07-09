@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skin Lesion Analyzer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1><i class="fas fa-heartbeat"></i> Skin Lesion Analyzer</h1>
+            <p>Upload a dermatoscopic image of the skin lesion to detect the probable condition</p>
+        </div>
+
+        <div class="main-content">
+            <div class="upload-section">
+                <div class="upload-area" id="uploadArea">
+                    <div class="upload-icon">📁</div>
+                    <div class="upload-text">Drop an image here or click to browse</div>
+                    <div class="upload-subtext">Supports JPG, PNG, GIF, and other image formats</div>
+                    <input type="file" id="fileInput" class="file-input" accept="image/*">
+                </div>
+            </div>
+
+            <div class="preview-section" id="previewSection" style="display: none;">
+                <img id="previewImage" class="preview-image" alt="Preview">
+                <div class="file-info" id="fileInfo"></div>
+            </div>
+
+            <div class="buttons">
+                <button class="btn btn-primary" id="predictBtn" disabled>
+                    <i class="fas fa-microscope"></i> Analyze
+                </button>
+                <button class="btn btn-secondary" id="resetBtn">
+                    <i class="fas fa-rotate-left"></i> Reset
+                </button>
+            </div>
+
+            <div class="loading" id="loading">
+                <div class="spinner"><i class="fas fa-spinner fa-spin fa-2x"></i></div>
+                <div>Making prediction...</div>
+            </div>
+
+            <div class="error" id="error">
+                <div class="error-header">
+                    <div class="error-icon"><i class="fas fa-exclamation-triangle"></i></div>
+                    <div class="error-title">Error</div>
+                </div>
+                <div class="error-message" id="errorMessage"></div>
+            </div>
+
+            <div class="results" id="results">
+                <div class="results-header">
+                    <div class="results-icon"><i class="fas fa-check-circle"></i></div>
+                    <div class="results-title">Prediction Results</div>
+                </div>
+
+                <div class="main-prediction">
+                    <div class="prediction-header"><i class="fas fa-diagnoses"></i> Top Prediction</div>
+                    <div class="prediction-class" id="mainClass"></div>
+
+                    <!-- Hidden confidence bar -->
+                    <div class="confidence-bar" style="display: none;">
+                        <div class="confidence-fill" id="mainConfidenceBar"></div>
+                    </div>
+
+                    <!-- Hidden confidence text -->
+                    <div class="confidence-text" id="mainConfidence" style="display: none;"></div>
+                </div>
+
+                <div class="top-predictions">
+                    <div class="prediction-header"><i class="fas fa-list-ol"></i> Top Predictions</div>
+                    <div id="topPredictions"></div>
+                </div>
+
+                <div class="gradcam-section" id="gradcamSection" style="display: none;">
+                    <div class="prediction-header"><i class="fas fa-eye"></i> Model Attention (Grad-CAM)</div>
+                    <img id="gradcamImage" class="preview-image" alt="Grad-CAM">
+                </div>
+            </div>
+
+            <div class="disclaimer">
+                <i class="fas fa-user-md"></i>
+                <strong> Disclaimer:</strong> This tool is intended for educational and informational purposes only. It is not a substitute for professional medical advice, diagnosis, or treatment. Always consult a qualified dermatologist for any skin concerns.
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
