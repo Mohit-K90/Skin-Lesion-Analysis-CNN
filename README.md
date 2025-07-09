@@ -74,6 +74,7 @@ Mohit Kamkhalia
 
 📧 mohitkamkhalia@gmail.com
 
-🔗 GitHub | LinkedIn
+[![GitHub](https://img.shields.io/badge/GitHub-000?logo=github&logoColor=white)](https://github.com/Mohit-K90)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?logo=linkedin&logoColor=white)](https://www.linkedin.com/in/mohit-kamkhalia-7b61892a9/)
 
 Disclaimer: This tool is intended for academic and research purposes. It is not a substitute for clinical diagnosis.
