@@ -30,9 +30,8 @@ ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-# CBAM layer (unchanged)
-import tensorflow as tf
-from tensorflow.keras.layers import Layer, Conv2D, GlobalAveragePooling2D, GlobalMaxPooling2D, Dense, Reshape, Add, Multiply, Concatenate, Activation, Input
+# CBAM layer
+from tensorflow.keras.layers import Layer, GlobalAveragePooling2D, GlobalMaxPooling2D, Reshape, Add, Multiply, Concatenate, Activation, Input
 
 class CBAM(tf.keras.layers.Layer):
     def __init__(self, reduction_ratio=8, **kwargs):
@@ -42,15 +41,12 @@ class CBAM(tf.keras.layers.Layer):
     def build(self, input_shape):
         channel = input_shape[-1]
 
-        # Channel attention layers
         self.shared_dense_one = Dense(channel // self.reduction_ratio, activation='relu')
         self.shared_dense_two = Dense(channel)
 
-        # Spatial attention layers
         self.conv_spatial = Conv2D(1, kernel_size=7, padding='same', activation='sigmoid')
 
     def call(self, inputs):
-        # ----- Channel Attention -----
         avg_pool = tf.reduce_mean(inputs, axis=[1, 2])
         max_pool = tf.reduce_max(inputs, axis=[1, 2])
 
@@ -62,7 +58,6 @@ class CBAM(tf.keras.layers.Layer):
 
         x = inputs * channel_attention
 
-        # ----- Spatial Attention -----
         avg_pool = tf.reduce_mean(x, axis=-1, keepdims=True)
         max_pool = tf.reduce_max(x, axis=-1, keepdims=True)
         concat = tf.concat([avg_pool, max_pool], axis=-1)
@@ -71,6 +66,7 @@ class CBAM(tf.keras.layers.Layer):
         refined = x * spatial_attention
 
         return refined
+
 def load_model_safely():
     global model
     try:
@@ -80,6 +76,10 @@ def load_model_safely():
     except Exception as e:
         print(f"❌ Error loading model: {e}")
         return False
+
+# ✅ Ensure model loads at startup (works for Gunicorn too)
+if not load_model_safely():
+    raise RuntimeError("❌ Could not load model at startup")
 
 def preprocess_image(image, target_size=(224, 224)):
     if image.mode != 'RGB':
@@ -179,7 +179,4 @@ def health():
     return jsonify({'status': 'healthy', 'model_loaded': model is not None})
 
 if __name__ == '__main__':
-    if load_model_safely():
-        app.run(debug=True, host='0.0.0.0', port=5000)
-    else:
-        print("❌ Could not load model.")
+    app.run(debug=True, host='0.0.0.0', port=5000)
